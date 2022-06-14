@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: matrix-generated-helm-app-set
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/wolf-michl/argocd-example-apps.git
+              revision: HEAD
+              directories:
+                - path: helm-*
+          - list:
+              elements:
+                - cluster: dev
+                  server: https://kubernetes.default.svc
+                - cluster: prod
+                  server: https://127.0.0.69
+  template:
+    metadata:
+      name: '{{cluster}}-{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/wolf-michl/argocd-example-apps.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: '{{server}}'
+        namespace: argocd-example-apps

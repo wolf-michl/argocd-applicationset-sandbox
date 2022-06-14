@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: git-generated-helm-app-set
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/wolf-michl/argocd-example-apps.git
+        revision: HEAD
+        directories:
+          - path: helm-*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/wolf-michl/argocd-example-apps.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd-example-apps
