@@ -14,25 +14,38 @@ kubectl apply -n argocd -f APPSET_YAML
 
 CR_YAML is the path to the corresponding applicationset YAML.
 
-### [List generator example](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-List/)
+### [List generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-List/) examples
+
+#### Multiple clusters example
+
+Our application should be deployed to multiple clusters.
 
 ```bash
-kubectl apply -n argocd -f list-generated.yaml
+kubectl apply -n argocd -f list-generated-clusters.yaml
 ```
 
-### [Cluster generator example](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Cluster/)
+#### Multiple environments example
+
+Our application has a different state per environment, which we illustrate with multiple branches. We deploy those into
+their own environment-specific namespaces.
+
+```bash
+kubectl apply -n argocd -f list-generated-environments.yaml
+```
+
+### [Cluster generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Cluster/) example
 
 ```bash
 kubectl apply -n argocd -f cluster-generated.yaml
 ```
 
-### [Git generator example](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Git/)
+### [Git generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Git/) example
 
 ```bash
 kubectl apply -n argocd -f git-generated.yaml
 ```
 
-### [Matrix generator example](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Matrix/)
+### [Matrix generator](https://argo-cd.readthedocs.io/en/latest/operator-manual/applicationset/Generators-Matrix/) example
 
 Here we combine a git generator with a list generator.
 
